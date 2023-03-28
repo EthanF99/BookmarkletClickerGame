@@ -74,7 +74,7 @@
             auto++;
             autoCost += autoCostI;
             autoCostI *= autoCostMult;
-            autoButton.innerHTML = "Auto\n"+incCost.toFixed(2).toString();
+            autoButton.innerHTML = "Auto\n"+autoCost.toFixed(2).toString();
         }
     });
 
