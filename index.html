@@ -20,8 +20,8 @@
 
     let moneybox = document.createElement('button');
     moneybox.style.position = "relative";
-    moneybox.style.top = '-5px';
-    moneybox.style.left = '-90px';
+    moneybox.style.top = '0px';
+    moneybox.style.left = '0px';
     moneybox.style.width = '50px';
     moneybox.style.height = '30px';
     moneybox.style.color = 'black';
@@ -39,7 +39,7 @@
     incButton.innerHTML = "Inc\n10";
     incButton.style.position = 'relative';
     incButton.style.top = '25px';
-    incButton.style.left = '10px';
+    incButton.style.left = '0px';
     incButton.style.width = '50px';
     incButton.style.height = '40px';
     incButton.style.color = 'black';
@@ -64,7 +64,7 @@
     autoButton.innerHTML = "Auto\n500";
     autoButton.style.position = 'relative';
     autoButton.style.top = '70px';
-    autoButton.style.left = '-40px';
+    autoButton.style.left = '0px';
     autoButton.style.width = '50px';
     autoButton.style.height = '40px';
     autoButton.style.color = 'black';
@@ -96,7 +96,7 @@
     let inc = 1;
     let incCost = 10;
     let incCostI = 10;
-    let incCostMult = 1.2
+    let incCostMult = 1.2;
 
     let auto = 0;
     let autoCost = 500;
@@ -110,7 +110,7 @@
 
     function loop(){
         moneybox.innerText = money.toFixed(2).toString();
-        money += (inc / framerate)*auto/10;
+        money += (inc/10 / framerate)*auto;
         setTimeout(loop, delay);
     }
 </script>

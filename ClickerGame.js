@@ -89,7 +89,7 @@
     let inc = 1;
     let incCost = 10;
     let incCostI = 10;
-    let incCostMult = 1.2
+    let incCostMult = 1.2;
 
     let auto = 0;
     let autoCost = 500;
@@ -103,7 +103,7 @@
 
     function loop(){
         moneybox.innerText = money.toFixed(2).toString();
-        money += (inc / framerate)*auto/10;
+        money += (inc/10 / framerate)*auto;
         setTimeout(loop, delay);
     }
 
