@@ -1,6 +1,6 @@
 (function(){
 
-    console.log("Hi, it's working right now");
+
     let box = document.createElement('div');
     box.style.position = 'fixed';
     box.style.bottom = '50px';
@@ -13,8 +13,8 @@
 
     let moneybox = document.createElement('button');
     moneybox.style.position = "relative";
-    moneybox.style.top = '-5px';
-    moneybox.style.left = '-90px';
+    moneybox.style.top = '-130px';
+    moneybox.style.left= '0px';
     moneybox.style.width = '50px';
     moneybox.style.height = '30px';
     moneybox.style.color = 'black';
@@ -31,8 +31,8 @@
     let incButton = document.createElement('button');
     incButton.innerHTML = "Inc\n10";
     incButton.style.position = 'relative';
-    incButton.style.top = '25px';
-    incButton.style.left = '10px';
+    incButton.style.top = '20px';
+    incButton.style.left = '0px';
     incButton.style.width = '50px';
     incButton.style.height = '40px';
     incButton.style.color = 'black';
@@ -56,8 +56,8 @@
     let autoButton = document.createElement('button');
     autoButton.innerHTML = "Auto\n500";
     autoButton.style.position = 'relative';
-    autoButton.style.top = '70px';
-    autoButton.style.left = '-40px';
+    autoButton.style.top = '10px';
+    autoButton.style.left = '0px';
     autoButton.style.width = '50px';
     autoButton.style.height = '40px';
     autoButton.style.color = 'black';
