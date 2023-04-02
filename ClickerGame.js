@@ -1,6 +1,5 @@
 (function(){
 
-
     let box = document.createElement('div');
     box.style.position = 'fixed';
     box.style.bottom = '50px';
