@@ -47,7 +47,7 @@
             inc++;
             incCost += incCostI;
             incCostI *= incCostMult;
-            incButton.innerHTML = "Inc\n"+incCost.toFixed(2).toString();
+            incButton.innerHTML = "Inc\n"+convert(incCost);
         }
     });
 
@@ -72,7 +72,7 @@
             auto++;
             autoCost += autoCostI;
             autoCostI *= autoCostMult;
-            autoButton.innerHTML = "Auto\n"+autoCost.toFixed(2).toString();
+            autoButton.innerHTML = "Auto\n"+convert(autoCost);
         }
     });
 
@@ -116,10 +116,11 @@
             ginc++;
             gincCost += gincCostI;
             gincCostI *= gincCostMult;
-            gincButton.innerHTML = "G-Inc\n"+gincCost.toFixed(2).toString();
+            gincButton.innerHTML = "G-Inc\n"+convert(gincCost);
         }else if (money >= gunlock && ginc === 0){
             ginc++;
-            gincButton.innerHTML = "G-Inc\n"+gincCost.toFixed(2).toString();
+            money -= gunlock;
+            gincButton.innerHTML = "G-Inc\n"+convert(gincCost);
         }
     });
 
@@ -144,7 +145,7 @@
             gauto++;
             gautoCost += gautoCostI;
             gautoCostI *= gautoCostMult;
-            gautoButton.innerHTML = "G-Auto\n"+gautoCost.toFixed(2).toString();
+            gautoButton.innerHTML = "G-Auto\n"+convert(gautoCost);
         }
     });
 
@@ -158,7 +159,7 @@
 
     document.body.appendChild(box);
 
-    let money = 100000;
+    let money = 10000000;
     let inc = 1;
     let incCost = 10;
     let incCostI = 10;
@@ -186,32 +187,21 @@
     let framerate = 20;
 
     loop();
-/*
-    function shorten_money(money) {
 
-        let symbols = ['', '', ' million', ' billion', ' trillion', ' quadrillion', ' quintillion', 'sextillion', 'septillion', 'ocillion', 'nonillion', 'decillion', 'undecillion'];
-
-        let tier = Math.floor(Math.log10(money) / 3);
-        if (tier <= 1) return Math.round(money).toLocaleString();
-        let suffix = symbols[tier];
-        let scale = Math.pow(10, tier * 3);
-        let scaled = money / scale;
-        return scaled.toFixed(3) + suffix;
-
-    }*/
-
+    function convert(amount){
+        if(amount >= 100000) {
+            return amount.toExponential(2);
+        } else if(Math.floor(amount) === amount){
+            return amount.toString();
+        } else {
+            return amount.toFixed(2);
+        }
+    }
 
     function loop(){
-        if(Math.floor(money) === money){
-            moneybox.innerText = money.toString();
-        } else{
-            moneybox.innerText = money.toFixed(2).toString();
-        }
-        if(Math.floor(gem) === gem){
-            gembox.innerText = gem.toString();
-        } else{
-            gembox.innerText = gem.toFixed(2).toString();
-        }
+
+        moneybox.innerText = convert(money);
+        gembox.innerText = convert(gem);
         if(gem !== 0){
             money += (inc/5 / framerate)*auto*Math.sqrt(gem); /*regular autoscale with gem amount*/
             gem += (ginc/5 / framerate)*gauto;
