@@ -198,6 +198,14 @@
         }
     }
 
+    const iframe = document.createElement("iframe");
+    iframe.src('https://raw.githubusercontent.com/EthanF99/BookmarkletClickerGame/master/storage.js');
+    document.body.appendChild(iframe);
+
+    iframe.addEventListener("load",function(){
+       iframe.contentWindow.postMessage('hi','https://raw.githubusercontent.com/EthanF99/BookmarkletClickerGame/master/storage.js');
+    });
+
     function loop(){
 
         moneybox.innerText = convert(money);
