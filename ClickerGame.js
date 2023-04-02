@@ -3,22 +3,22 @@
 
     let box = document.createElement('div');
     box.style.position = 'fixed';
-    box.style.bottom = '50px';
+    box.style.bottom = '25px';
     box.style.right = '10px';
     box.style.width = '150px';
-    box.style.height = '100px';
+    box.style.height = '120px';
     box.style.color = 'black';
     box.style.background = 'lightblue';
     box.style.padding = '20px';
 
     let moneybox = document.createElement('button');
-    moneybox.style.position = "relative";
-    moneybox.style.top = '-130px';
-    moneybox.style.left= '0px';
-    moneybox.style.width = '50px';
+    moneybox.style.position = "fixed";
+    moneybox.style.bottom = '145px';
+    moneybox.style.right= '110px';
+    moneybox.style.width = '75px';
     moneybox.style.height = '30px';
     moneybox.style.color = 'black';
-    moneybox.style.background = 'lightblue';
+    moneybox.style.background = 'lightgreen';
 
     moneybox.style.borderWidth = '2px';
     moneybox.style.borderStyle = 'solid';
@@ -30,13 +30,13 @@
 
     let incButton = document.createElement('button');
     incButton.innerHTML = "Inc\n10";
-    incButton.style.position = 'relative';
-    incButton.style.top = '20px';
-    incButton.style.left = '0px';
-    incButton.style.width = '50px';
+    incButton.style.position = 'fixed';
+    incButton.style.bottom = '90px';
+    incButton.style.right = '110px';
+    incButton.style.width = '75px';
     incButton.style.height = '40px';
     incButton.style.color = 'black';
-    incButton.style.background = 'lightblue';
+    incButton.style.background = 'lightgreen';
 
     incButton.style.borderWidth = '2px';
     incButton.style.borderStyle = 'solid';
@@ -55,13 +55,13 @@
 
     let autoButton = document.createElement('button');
     autoButton.innerHTML = "Auto\n500";
-    autoButton.style.position = 'relative';
-    autoButton.style.top = '10px';
-    autoButton.style.left = '0px';
-    autoButton.style.width = '50px';
+    autoButton.style.position = 'fixed';
+    autoButton.style.bottom = '35px';
+    autoButton.style.right = '110px';
+    autoButton.style.width = '75px';
     autoButton.style.height = '40px';
     autoButton.style.color = 'black';
-    autoButton.style.background = 'lightblue';
+    autoButton.style.background = 'lightgreen';
 
     autoButton.style.borderWidth = '2px';
     autoButton.style.borderStyle = 'solid';
@@ -74,18 +74,93 @@
             auto++;
             autoCost += autoCostI;
             autoCostI *= autoCostMult;
-            autoButton.innerHTML = "Auto\n"+incCost.toFixed(2).toString();
+            autoButton.innerHTML = "Auto\n"+autoCost.toFixed(2).toString();
+        }
+    });
+
+
+    let gembox = document.createElement('button');
+    gembox.style.position = "fixed";
+    gembox.style.bottom = '145px';
+    gembox.style.right= '25px';
+    gembox.style.width = '75px';
+    gembox.style.height = '30px';
+    gembox.style.color = 'black';
+    gembox.style.background = 'red';
+
+    gembox.style.borderWidth = '2px';
+    gembox.style.borderStyle = 'solid';
+    gembox.style.borderColor = 'black';
+    gembox.style.textAlign = 'center';
+    gembox.addEventListener('click', () =>{
+        gem += ginc;
+    });
+
+    let gincButton = document.createElement('button');
+    gincButton.innerHTML = "G-Inc\n10000" ;
+    gincButton.style.position = 'fixed';
+    gincButton.style.bottom = '90px';
+    gincButton.style.right = '25px';
+    gincButton.style.width = '75px';
+    gincButton.style.height = '40px';
+    gincButton.style.color = 'black';
+    gincButton.style.background = 'red';
+
+    gincButton.style.borderWidth = '2px';
+    gincButton.style.borderStyle = 'solid';
+    gincButton.style.borderColor = 'black';
+    gincButton.style.textAlign = 'center';
+
+
+    gincButton.addEventListener('click', () =>{
+        if (gem >= gincCost){
+            gem -= gincCost;
+            ginc++;
+            gincCost += gincCostI;
+            gincCostI *= gincCostMult;
+            gincButton.innerHTML = "G-Inc\n"+gincCost.toFixed(2).toString();
+        }else if (money >= gunlock && ginc === 0){
+            ginc++;
+            gincButton.innerHTML = "G-Inc\n"+gincCost.toFixed(2).toString();
+        }
+    });
+
+    let gautoButton = document.createElement('button');
+    gautoButton.innerHTML = "G-Auto\n500" ;
+    gautoButton.style.position = 'fixed';
+    gautoButton.style.bottom = '35px';
+    gautoButton.style.right = '25px';
+    gautoButton.style.width = '75px';
+    gautoButton.style.height = '40px';
+    gautoButton.style.color = 'black';
+    gautoButton.style.background = 'red';
+
+    gautoButton.style.borderWidth = '2px';
+    gautoButton.style.borderStyle = 'solid';
+    gautoButton.style.borderColor = 'black';
+    gautoButton.style.textAlign = 'center';
+
+    gautoButton.addEventListener('click', () =>{
+        if (gem >= gautoCost){
+            gem -= gautoCost;
+            gauto++;
+            gautoCost += gautoCostI;
+            gautoCostI *= gautoCostMult;
+            gautoButton.innerHTML = "G-Auto\n"+gautoCost.toFixed(2).toString();
         }
     });
 
     box.appendChild(incButton);
     box.appendChild(autoButton);
-
     box.appendChild(moneybox);
+
+    box.appendChild(gincButton);
+    box.appendChild(gautoButton);
+    box.appendChild(gembox);
 
     document.body.appendChild(box);
 
-    let money = 0;
+    let money = 100000;
     let inc = 1;
     let incCost = 10;
     let incCostI = 10;
@@ -96,14 +171,42 @@
     let autoCostI = 500;
     let autoCostMult = 1.2;
 
+    let gem = 0;
+    let ginc = 0;
+    let gunlock = 10000;
+    let gincCost = 10;
+    let gincCostI = 10;
+    let gincCostMult = 1.2;
+
+    let gauto = 0;
+    let gautoCost = 500;
+    let gautoCostI = 500;
+    let gautoCostMult = 1.2;
+
+
     let delay = 50;
     let framerate = 20;
 
     loop();
 
     function loop(){
-        moneybox.innerText = money.toFixed(2).toString();
-        money += (inc/10 / framerate)*auto;
+        if(Math.floor(money) === money){
+            moneybox.innerText = money.toString();
+        } else{
+            moneybox.innerText = money.toFixed(2).toString();
+        }
+        if(Math.floor(gem) === gem){
+            gembox.innerText = gem.toString();
+        } else{
+            gembox.innerText = gem.toFixed(2).toString();
+        }
+        if(gem !== 0){
+            money += (inc/5 / framerate)*auto*Math.sqrt(gem); /*regular autoscale with gem amount*/
+            gem += (ginc/5 / framerate)*gauto;
+        }else{
+            money += (inc/5 / framerate)*auto;
+            gem += (ginc/5 / framerate)*gauto;
+        }
         setTimeout(loop, delay);
     }
 
