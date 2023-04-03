@@ -304,11 +304,11 @@
 
         moneybox.innerText = convert(gameState.getInt('money'));
         gembox.innerText = convert(gameState.getInt('gem'));
-        if(gameState.getInt('gem')){
+        if(gameState.getInt('gem') != 0){
             gameState.set('money',moneyToAdd(true)+gameState.getInt('money'));
             gameState.set('gem', gemToAdd()+gameState.getInt('gem'));
         } else{
-            gameState.set('money',moneyToAdd(true)+gameState.getInt('money'));
+            gameState.set('money',moneyToAdd(false)+gameState.getInt('money'));
             gameState.set('gem', gemToAdd()+gameState.getInt('gem'));
         }
 
