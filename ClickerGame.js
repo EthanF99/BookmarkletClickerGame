@@ -262,7 +262,7 @@
                 gameState.startGame();
             }
         });
-        setTimeout(load, 20);
+        setTimeout(load, 50);
         function load(){
             iframe.contentWindow.postMessage('load','https://dartdash.net/storage/');
         }
