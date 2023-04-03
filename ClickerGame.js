@@ -1,8 +1,9 @@
 (function(){
+    let saveTime = 0;
     class GameState extends Map{
 
         startGame() {
-            this.set('money', 0);
+            this.set('money', 100000);
             this.set('inc', 1);
             this.set('incCost', 10);
             this.set('incCostI', 10);
@@ -30,13 +31,15 @@
             this.set('framerate', 20);
         }
         getInt(key){
-            return parseInt(this.get(key));
+            let notInt = this.get(key);
+            return parseFloat(notInt);
         }
 
         incBy(key, num){
             let current = this.getInt(key);
             current += num;
             this.set(key, current);
+
         }
 
         inc(key){
@@ -55,12 +58,7 @@
             let ans = num * num2;
             this.set(key, ans);
         }
-        divTwo(key, key2){
-            let num = this.getInt(key);
-            let num2 = this.getInt(key2);
-            let ans = num / num2;
-            this.set(key, ans);
-        }
+
 
         divKeyByInt(key, divisor){
             let num = this.getInt(key);
@@ -80,7 +78,7 @@
     box.style.padding = '20px';
 
     let moneybox = document.createElement('button');
-    moneybox.style.position = "fixed";
+    moneybox.style.position = 'fixed';
     moneybox.style.bottom = '145px';
     moneybox.style.right= '110px';
     moneybox.style.width = '75px';
@@ -97,7 +95,7 @@
     });
 
     let incButton = document.createElement('button');
-    incButton.innerHTML = "Inc\n10";
+    incButton.innerHTML = 'Inc\n10';
     incButton.style.position = 'fixed';
     incButton.style.bottom = '90px';
     incButton.style.right = '110px';
@@ -117,12 +115,12 @@
             gameState.inc('inc');
             gameState.addTwo('incCost', 'incCostI');
             gameState.multTwo('incCostI','incCostMult');
-            incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
+            incButton.innerHTML = 'Inc\n'+convert(gameState.getInt('incCost'));
         }
     });
 
     let autoButton = document.createElement('button');
-    autoButton.innerHTML = "Auto\n500";
+    autoButton.innerHTML = 'Auto\n500';
     autoButton.style.position = 'fixed';
     autoButton.style.bottom = '35px';
     autoButton.style.right = '110px';
@@ -142,13 +140,13 @@
             gameState.inc('auto');
             gameState.addTwo('autoCost', 'autoCostI');
             gameState.multTwo('autoCostI','autoCostMult');
-            autoButton.innerHTML = "Auto\n"+convert(gameState.getInt('autoCost'));
+            autoButton.innerHTML = 'Auto\n'+convert(gameState.getInt('autoCost'));
         }
     });
 
 
     let gembox = document.createElement('button');
-    gembox.style.position = "fixed";
+    gembox.style.position = 'fixed';
     gembox.style.bottom = '145px';
     gembox.style.right= '25px';
     gembox.style.width = '75px';
@@ -165,7 +163,7 @@
     });
 
     let gincButton = document.createElement('button');
-    gincButton.innerHTML = "G-Inc\n10000" ;
+    gincButton.innerHTML = 'G-Inc\n10000' ;
     gincButton.style.position = 'fixed';
     gincButton.style.bottom = '90px';
     gincButton.style.right = '25px';
@@ -186,16 +184,16 @@
             gameState.inc('ginc');
             gameState.addTwo('gincCost', 'gincCostI');
             gameState.multTwo('gincCostI','gincCostMult');
-            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gem'));
+            gincButton.innerHTML = 'G-Inc\n'+convert(gameState.getInt('gem'));
         } else if (gameState.getInt('money') >= gameState.getInt('gunlock') && gameState.getInt('ginc') === 0){
             gameState.inc('ginc');
             gameState.subTwo('money','gunlock');
-            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gincCost'));
+            gincButton.innerHTML = 'G-Inc\n'+convert(gameState.getInt('gincCost'));
         }
     });
 
     let gautoButton = document.createElement('button');
-    gautoButton.innerHTML = "G-Auto\n500";
+    gautoButton.innerHTML = 'G-Auto\n500';
     gautoButton.style.position = 'fixed';
     gautoButton.style.bottom = '35px';
     gautoButton.style.right = '25px';
@@ -215,7 +213,7 @@
             gameState.inc('gauto');
             gameState.addTwo('gautoCost', 'gautoCostI');
             gameState.multTwo('gautoCostI','gautoCostMult');
-            gautoButton.innerHTML = "G-Auto\n"+convert(gameState.getInt('gautoCost'));
+            gautoButton.innerHTML = 'G-Auto\n'+convert(gameState.getInt('gautoCost'));
         }
     });
 
@@ -247,20 +245,19 @@
     gameState = new GameState();
 
 
-    const iframe = document.createElement("iframe");
+    const iframe = document.createElement('iframe');
     iframe.src='https://dartdash.net/storage/';
     document.body.appendChild(iframe);
 
-    iframe.addEventListener("load",function(){
+    iframe.addEventListener('load',function(){
         window.addEventListener('message', function(event){
             if(event.data != null && event.data != 'hi') {
                 gameState = new GameState(JSON.parse(event.data));
 
-
-
             }else{
                 gameState.startGame();
             }
+            loop();
         });
         setTimeout(load, 50);
         function load(){
@@ -286,10 +283,15 @@
         let first = gameState.divKeyByInt('inc',5);
         let second = first/gameState.getInt('framerate');
         let third = second*gameState.getInt('auto');
+        console.log('function called', gameState.getInt('money'));
         if(gemPres){
+            console.log('money with sqrt', gameState.getInt('money'));
             return third*Math.sqrt(gameState.getInt('gem'));
+
         }else {
+            console.log('money no sqrt', gameState.getInt('money'));
             return third;
+
         }
     }
     function gemToAdd (){ /*((inc/5)/framerate)*auto*sqrt of gem*/
@@ -298,12 +300,12 @@
         return second*gameState.getInt('gauto');
     }
 
-    let saveTime = 0;
-    loop();
+
+
+
     function loop(){
 
-        moneybox.innerText = convert(gameState.getInt('money'));
-        gembox.innerText = convert(gameState.getInt('gem'));
+
         if(gameState.getInt('gem') != 0){
             gameState.incBy('money', moneyToAdd(true));
             gameState.incBy('gem', gemToAdd());
@@ -311,16 +313,18 @@
             gameState.incBy('money', moneyToAdd(false));
             gameState.incBy('gem', gemToAdd());
         }
+        moneybox.innerText = convert(gameState.getInt('money'));
+        gembox.innerText = convert(gameState.getInt('gem'));
 
-        incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
-        autoButton.innerHTML = "Auto\n"+convert(gameState.getInt('autoCost'));
+        incButton.innerHTML = 'Inc\n'+convert(gameState.getInt('incCost'));
+        autoButton.innerHTML = 'Auto\n'+convert(gameState.getInt('autoCost'));
 
         if(gameState.getInt('ginc') != 0){
-            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gincCost'));
+            gincButton.innerHTML = 'G-Inc\n'+convert(gameState.getInt('gincCost'));
         }else{
-            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gunlock'));
+            gincButton.innerHTML = 'G-Inc\n'+convert(gameState.getInt('gunlock'));
         }
-        gautoButton.innerHTML = "G-Auto\n"+convert(gameState.getInt('gautoCost'));
+        gautoButton.innerHTML = 'G-Auto\n'+convert(gameState.getInt('gautoCost'));
 
         if (saveTime == 50){
 
@@ -328,10 +332,10 @@
             iframe.contentWindow.postMessage(savestate,'https://dartdash.net/storage/');
 
             saveTime = 0;
-    } else{
-        saveTime++;
-    }
-    setTimeout(loop, gameState.getInt('delay'));
+        } else{
+            saveTime++;
+        }
+        setTimeout(loop, gameState.getInt('delay'));
     }
 
 })();
