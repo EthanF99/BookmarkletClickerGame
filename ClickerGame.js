@@ -328,10 +328,10 @@
             iframe.contentWindow.postMessage(savestate,'https://dartdash.net/storage/');
 
             saveTime = 0;
-        } else{
-            saveTime++;
-        }
-        setTimeout(loop, gameState.getInt('delay'));
+    } else{
+        saveTime++;
+    }
+    setTimeout(loop, gameState.getInt('delay'));
     }
 
 })();
