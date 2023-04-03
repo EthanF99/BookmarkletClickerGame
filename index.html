@@ -10,7 +10,7 @@
     class GameState extends Map{
 
         startGame() {
-            this.set('money', 10000000);
+            this.set('money', 0);
             this.set('inc', 1);
             this.set('incCost', 10);
             this.set('incCostI', 10);
@@ -203,7 +203,7 @@
     });
 
     let gautoButton = document.createElement('button');
-    gautoButton.innerHTML = "G-Auto\n500" ;
+    gautoButton.innerHTML = "G-Auto\n500";
     gautoButton.style.position = 'fixed';
     gautoButton.style.bottom = '35px';
     gautoButton.style.right = '25px';
@@ -227,6 +227,19 @@
         }
     });
 
+    let rButton = document.createElement('button');
+    rButton.innerHTML = '';
+    rButton.style.position = 'fixed';
+    rButton.style.bottom = '10px';
+    rButton.style.right = '10px';
+    rButton.style.width = '10px';
+    rButton.style.height = '15px';
+    rButton.style.background = 'black';
+    rButton.addEventListener('click', () =>{
+        gameState.startGame();
+    });
+
+
     box.appendChild(incButton);
     box.appendChild(autoButton);
     box.appendChild(moneybox);
@@ -235,16 +248,9 @@
     box.appendChild(gautoButton);
     box.appendChild(gembox);
 
+    document.body.appendChild(rButton);
+
     document.body.appendChild(box);
-
-
-
-
-
-
-
-
-
 
     gameState = new GameState();
 
@@ -255,26 +261,19 @@
 
     iframe.addEventListener("load",function(){
         window.addEventListener('message', function(event){
-            console.log("recieved payload from iframe", event.data);
             if(event.data != null && event.data != 'hi') {
                 gameState = new GameState(JSON.parse(event.data));
-                autoButton.innerHTML = ''
-                console.log(gameState);
 
-                incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
-                autoButton.innerHTML = "Auto\n"+convert(gameState.getInt('autoCost'));
 
-                if(gameState.getInt(ginc) != 0){
-                    gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gincCost'));
-                }else{
-                    gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gunlock'));
-                }
-                gautoButton.innerHTML = "G-Auto\n"+convert(gameState.getInt('gautoCost'));
+
             }else{
                 gameState.startGame();
             }
         });
-        iframe.contentWindow.postMessage('load','https://dartdash.net/storage/');
+        setTimeout(load, 20);
+        function load(){
+            iframe.contentWindow.postMessage('load','https://dartdash.net/storage/');
+        }
     });
 
 
@@ -320,6 +319,16 @@
             moneyToAdd(false);
             gemToAdd();
         }
+
+        incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
+        autoButton.innerHTML = "Auto\n"+convert(gameState.getInt('autoCost'));
+
+        if(gameState.getInt('ginc') != 0){
+            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gincCost'));
+        }else{
+            gincButton.innerHTML = "G-Inc\n"+convert(gameState.getInt('gunlock'));
+        }
+        gautoButton.innerHTML = "G-Auto\n"+convert(gameState.getInt('gautoCost'));
 
         if (saveTime == 50){
 
