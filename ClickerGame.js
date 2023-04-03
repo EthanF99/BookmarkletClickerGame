@@ -305,11 +305,11 @@
         moneybox.innerText = convert(gameState.getInt('money'));
         gembox.innerText = convert(gameState.getInt('gem'));
         if(gameState.getInt('gem')){
-            gameState.set('money',moneyToAdd(true));
-            gameState.set('gem', gemToAdd());
+            gameState.set('money',moneyToAdd(true)+gameState.getInt('money'));
+            gameState.set('gem', gemToAdd()+gameState.getInt('gem'));
         } else{
-            gameState.set('money',moneyToAdd(false));
-            gameState.set('gem', gemToAdd());
+            gameState.set('money',moneyToAdd(true)+gameState.getInt('money'));
+            gameState.set('gem', gemToAdd()+gameState.getInt('gem'));
         }
 
         incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
