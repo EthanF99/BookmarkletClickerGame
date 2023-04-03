@@ -305,11 +305,11 @@
         moneybox.innerText = convert(gameState.getInt('money'));
         gembox.innerText = convert(gameState.getInt('gem'));
         if(gameState.getInt('gem')){
-            moneyToAdd(true);
-            gemToAdd();
+            gameState.set('money',moneyToAdd(true));
+            gameState.set('gem', gemToAdd());
         } else{
-            moneyToAdd(false);
-            gemToAdd();
+            gameState.set('money',moneyToAdd(false));
+            gameState.set('gem', gemToAdd());
         }
 
         incButton.innerHTML = "Inc\n"+convert(gameState.getInt('incCost'));
