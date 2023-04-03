@@ -217,7 +217,7 @@
 
     gautoButton.addEventListener('click', () =>{
         if (gameState.getInt('gem') >= gameState.getInt('gautoCost')){
-            gameState.subTwo('money', 'gautoCost');
+            gameState.subTwo('gem', 'gautoCost');
             gameState.inc('gauto');
             gameState.addTwo('gautoCost', 'gautoCostI');
             gameState.multTwo('gautoCostI','gautoCostMult');
